@@ -38,6 +38,6 @@ flutter:
   generate: true  # Enables code generation for localization
 
   assets:
-    - assets/translations/
+    - assets/images/
     
   # Material 3 is enabled by default in Flutter 3.0+

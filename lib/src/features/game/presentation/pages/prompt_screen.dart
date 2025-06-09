@@ -100,12 +100,19 @@ class _PromptScreenState extends State<PromptScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Spacer(),
-                  const Icon(
-                    Icons.photo_library_outlined,
-                    size: 100,
-                    color: Colors.blue,
+                  const SizedBox(height: 20),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(
+                      'assets/images/img.png',
+                      height: 200,
+                    ),
                   ),
+                  // const Icon(
+                  //   Icons.photo_library_outlined,
+                  //   size: 100,
+                  //   color: Colors.blue,
+                  // ),
                   const SizedBox(height: 24),
                   Text(
                     AppLocalizations.of(context)!.enterTheme,

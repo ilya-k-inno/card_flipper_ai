@@ -30,6 +30,13 @@ class SettingsScreen extends StatelessWidget {
                 _buildLanguageSection(context, state),
                 const Divider(height: 32.0),
                 _buildAboutSection(context, theme),
+                const SizedBox(height: 30),
+                Text(
+                  'Developed by Ilya K. and Windsurf',
+                  style: Theme.of(context).textTheme.bodySmall,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 30),
               ],
             );
           }
