@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pixel_flip/src/features/game/presentation/bloc/game_cubit.dart';
 import 'package:pixel_flip/src/features/game/presentation/bloc/prompt_cubit.dart';
 import 'package:pixel_flip/src/features/game/presentation/pages/game_screen.dart';
 import 'package:pixel_flip/src/features/game/presentation/widgets/primary_button.dart';
@@ -45,14 +44,11 @@ class _PromptScreenState extends State<PromptScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => GameCubit(),
-          child: const GameScreen(),
+        builder: (context) => const GameScreen(
+          isOfflineMode: true,
         ),
       ),
     );
-    // Initialize game with offline mode
-    context.read<GameCubit>().initializeGame(null, isOfflineMode: true);
   }
 
   @override
@@ -68,14 +64,12 @@ class _PromptScreenState extends State<PromptScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                create: (context) => GameCubit(),
-                child: const GameScreen(),
+              builder: (context) => GameScreen(
+                imageUrls: state.imageUrls,
+                isOfflineMode: false,
               ),
             ),
           );
-          // Initialize game with the fetched images
-          context.read<GameCubit>().initializeGame(state.imageUrls);
         } else if (state is PromptLoaded) {
           // No images found, show error
           ScaffoldMessenger.of(context).showSnackBar(
@@ -132,19 +126,16 @@ class _PromptScreenState extends State<PromptScreen> {
                     },
                   ),
                   const SizedBox(height: 24),
-                  if (!_isOffline) ...[
-                    BlocBuilder<PromptCubit, PromptState>(
-                      builder: (context, state) {
-                        return PrimaryButton(
-                          onPressed:
-                              state is PromptLoading ? () {} : _startGame,
-                          label: AppLocalizations.of(context)!.startGame,
-                          icon: Icons.play_arrow,
-                          isLoading: state is PromptLoading,
-                        );
-                      },
-                    ),
-                  ],
+                  BlocBuilder<PromptCubit, PromptState>(
+                    builder: (context, state) {
+                      return PrimaryButton(
+                        onPressed: state is PromptLoading ? () {} : _startGame,
+                        label: AppLocalizations.of(context)!.startGame,
+                        icon: Icons.play_arrow,
+                        isLoading: state is PromptLoading,
+                      );
+                    },
+                  ),
                   const SizedBox(height: 16),
                   Text(AppLocalizations.of(context)!.or),
                   const SizedBox(height: 16),

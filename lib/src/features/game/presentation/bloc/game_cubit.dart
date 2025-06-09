@@ -126,50 +126,75 @@ class GameCubit extends Cubit<GameState> {
     if (faceUpCards.length == 1) {
       final otherCard = faceUpCards.first;
       final isMatch = otherCard.value == card.value;
+      final moves = currentState.moves + 1;
+
+      // Update state to show both cards face up immediately
+      emit(currentState.copyWith(
+        cards: updatedCards,
+        moves: moves,
+      ));
 
       if (isMatch) {
-        // Mark both cards as matched
-        for (int i = 0; i < updatedCards.length; i++) {
-          if (updatedCards[i].value == card.value && updatedCards[i].isFaceUp) {
-            updatedCards[i] = updatedCards[i].copyWith(isMatched: true);
-          }
-        }
-
-        final newMatches = currentState.matches + 1;
-        final moves = currentState.moves + 1;
-
-        // Check for win condition
-        if (newMatches == totalPairs) {
-          emit(GameWon(
-            cards: updatedCards,
-            moves: moves,
-            matches: newMatches,
-          ));
-        } else {
-          emit(currentState.copyWith(
-            cards: updatedCards,
-            moves: moves,
-            matches: newMatches,
-          ));
-        }
-      } else {
-        // No match, flip both cards back after a delay
-        final moves = currentState.moves + 1;
-        emit(currentState.copyWith(
-          cards: updatedCards,
-          moves: moves,
-        ));
-
-        _flipBackTimer = Timer(const Duration(seconds: 1), () {
+        // Shorter delay before showing the checkmark (reduced from 800ms to 400ms)
+        _flipBackTimer = Timer(const Duration(milliseconds: 400), () {
+          if (_flipBackTimer == null) return; // Already handled
           _flipBackTimer = null;
-          final currentState = state;
-          if (currentState is GameInProgress) {
-            final resetCards = List<CardModel>.from(currentState.cards);
-            for (int i = 0; i < resetCards.length; i++) {
-              if (resetCards[i].isFaceUp && !resetCards[i].isMatched) {
-                resetCards[i] = resetCards[i].copyWith(isFaceUp: false);
-              }
+          
+          if (state is! GameInProgress) return;
+          
+          final currentState = state as GameInProgress;
+          final updatedCards = List<CardModel>.from(currentState.cards);
+          bool updated = false;
+          
+          // Mark all matching cards as matched
+          for (int i = 0; i < updatedCards.length; i++) {
+            if (updatedCards[i].value == card.value && 
+                updatedCards[i].isFaceUp && 
+                !updatedCards[i].isMatched) {
+              updatedCards[i] = updatedCards[i].copyWith(isMatched: true);
+              updated = true;
             }
+          }
+
+          if (!updated) return;
+
+          final newMatches = currentState.matches + 1;
+
+          // Check for win condition
+          if (newMatches == totalPairs) {
+            emit(GameWon(
+              cards: updatedCards,
+              moves: moves,
+              matches: newMatches,
+            ));
+          } else {
+            emit(currentState.copyWith(
+              cards: updatedCards,
+              moves: moves,
+              matches: newMatches,
+            ));
+          }
+        });
+      } else {
+        // No match, flip both cards back after a shorter delay
+        _flipBackTimer = Timer(const Duration(milliseconds: 800), () {
+          if (_flipBackTimer == null) return; // Already handled
+          _flipBackTimer = null;
+          
+          if (state is! GameInProgress) return;
+          
+          final currentState = state as GameInProgress;
+          final resetCards = List<CardModel>.from(currentState.cards);
+          bool updated = false;
+          
+          for (int i = 0; i < resetCards.length; i++) {
+            if (resetCards[i].isFaceUp && !resetCards[i].isMatched) {
+              resetCards[i] = resetCards[i].copyWith(isFaceUp: false);
+              updated = true;
+            }
+          }
+          
+          if (updated) {
             emit(currentState.copyWith(cards: resetCards));
           }
         });

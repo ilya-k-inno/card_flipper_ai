@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixel_flip/src/features/game/presentation/bloc/game_cubit.dart';
 import 'package:pixel_flip/src/features/game/presentation/widgets/memory_card.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class GameScreen extends StatefulWidget {
   final List<String>? imageUrls;
@@ -23,11 +25,29 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    _gameCubit = GameCubit()
-      ..initializeGame(
+    _gameCubit = GameCubit();
+    // Initialize game with the provided images or in offline mode
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _gameCubit.initializeGame(
         widget.imageUrls,
         isOfflineMode: widget.isOfflineMode,
       );
+      // Preload images if any
+      if (widget.imageUrls != null) {
+        _preloadImages(widget.imageUrls!);
+      }
+    });
+  }
+
+  Future<void> _preloadImages(List<String> urls) async {
+    for (final url in urls) {
+      try {
+        // This will cache the image
+        await precacheImage(NetworkImage(url), context);
+      } catch (e) {
+        debugPrint('Failed to preload image: $e');
+      }
+    }
   }
 
   @override
