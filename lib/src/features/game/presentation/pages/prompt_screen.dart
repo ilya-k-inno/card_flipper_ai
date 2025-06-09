@@ -94,67 +94,78 @@ class _PromptScreenState extends State<PromptScreen> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Form(
               key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 20),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.asset(
-                      'assets/images/img.png',
-                      height: 200,
+              child: CustomScrollView(
+                slivers: [
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 20),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.asset(
+                            'assets/images/img.png',
+                            height: 200,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Text(
+                          AppLocalizations.of(context)!.enterTheme,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        const SizedBox(height: 32),
+                        IgnorePointer(
+                          ignoring: _isOffline,
+                          child: TextFormField(
+                            controller: _searchController,
+                            decoration: InputDecoration(
+                              labelText:
+                                  AppLocalizations.of(context)!.enterTheme,
+                              prefixIcon: const Icon(Icons.search),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return AppLocalizations.of(context)!.enterTheme;
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        BlocBuilder<PromptCubit, PromptState>(
+                          builder: (context, state) {
+                            return PrimaryButton(
+                              onPressed:
+                                  state is PromptLoading ? () {} : _startGame,
+                              label: AppLocalizations.of(context)!.startGame,
+                              icon: Icons.play_arrow,
+                              isLoading: state is PromptLoading,
+                              isActive: !_isOffline,
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        Text(AppLocalizations.of(context)!.or),
+                        const SizedBox(height: 16),
+                        OutlinedButton(
+                          onPressed: _startOfflineGame,
+                          child:
+                              Text(AppLocalizations.of(context)!.playOffline),
+                        ),
+                        const Spacer(),
+                        const SizedBox(height: 20),
+                        Text(
+                          'Powered by Pixabay',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 8),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  Text(
-                    AppLocalizations.of(context)!.enterTheme,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: 32),
-                  IgnorePointer(
-                    ignoring: _isOffline,
-                    child: TextFormField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.enterTheme,
-                        prefixIcon: const Icon(Icons.search),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return AppLocalizations.of(context)!.enterTheme;
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  BlocBuilder<PromptCubit, PromptState>(
-                    builder: (context, state) {
-                      return PrimaryButton(
-                        onPressed: state is PromptLoading ? () {} : _startGame,
-                        label: AppLocalizations.of(context)!.startGame,
-                        icon: Icons.play_arrow,
-                        isLoading: state is PromptLoading,
-                        isActive: !_isOffline,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  Text(AppLocalizations.of(context)!.or),
-                  const SizedBox(height: 16),
-                  OutlinedButton(
-                    onPressed: _startOfflineGame,
-                    child: Text(AppLocalizations.of(context)!.playOffline),
-                  ),
-                  const Spacer(),
-                  Text(
-                    'Powered by Pixabay',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: 8),
                 ],
               ),
             ),

@@ -168,7 +168,7 @@ class _MemoryCardState extends State<MemoryCard> with TickerProviderStateMixin {
   Widget _buildFront() {
     return widget.card.isImageCard
         ? ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12),
             child: Image.network(
               widget.card.imageUrl!,
               fit: BoxFit.cover,

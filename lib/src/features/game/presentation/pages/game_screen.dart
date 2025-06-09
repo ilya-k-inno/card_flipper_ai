@@ -132,10 +132,6 @@ class _GameScreenState extends State<GameScreen> {
                 }
               },
             ),
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () => _gameCubit.resetGame(),
-            ),
           ],
         ),
         body: BlocBuilder<GameCubit, GameState>(
