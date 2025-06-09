@@ -5,6 +5,7 @@ class PrimaryButton extends StatelessWidget {
   final String label;
   final IconData? icon;
   final bool isLoading;
+  final bool isActive;
 
   const PrimaryButton({
     super.key,
@@ -12,14 +13,29 @@ class PrimaryButton extends StatelessWidget {
     required this.label,
     this.icon,
     this.isLoading = false,
+    this.isActive = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDisabled = !isActive || isLoading;
+    
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: isLoading ? null : onPressed,
+        onPressed: isDisabled ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: isDisabled 
+              ? theme.colorScheme.primary.withOpacity(0.5)
+              : theme.colorScheme.primary,
+          foregroundColor: theme.colorScheme.onPrimary,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          elevation: isDisabled ? 0 : 2,
+        ),
         child: isLoading
             ? const SizedBox(
                 width: 24,
@@ -33,12 +49,23 @@ class PrimaryButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (icon != null) ...[
-                    Icon(icon),
+                    Icon(
+                      icon,
+                      color: isDisabled 
+                          ? theme.colorScheme.onPrimary.withOpacity(0.7)
+                          : theme.colorScheme.onPrimary,
+                    ),
                     const SizedBox(width: 8),
                   ],
                   Text(
                     label,
-                    style: const TextStyle(fontSize: 16),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: isDisabled 
+                          ? theme.colorScheme.onPrimary.withOpacity(0.7)
+                          : theme.colorScheme.onPrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),

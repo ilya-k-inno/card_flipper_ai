@@ -108,29 +108,27 @@ class _PromptScreenState extends State<PromptScreen> {
                       height: 200,
                     ),
                   ),
-                  // const Icon(
-                  //   Icons.photo_library_outlined,
-                  //   size: 100,
-                  //   color: Colors.blue,
-                  // ),
                   const SizedBox(height: 24),
                   Text(
                     AppLocalizations.of(context)!.enterTheme,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 32),
-                  TextFormField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.enterTheme,
-                      prefixIcon: const Icon(Icons.search),
+                  IgnorePointer(
+                    ignoring: _isOffline,
+                    child: TextFormField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.enterTheme,
+                        prefixIcon: const Icon(Icons.search),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return AppLocalizations.of(context)!.enterTheme;
+                        }
+                        return null;
+                      },
                     ),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return AppLocalizations.of(context)!.enterTheme;
-                      }
-                      return null;
-                    },
                   ),
                   const SizedBox(height: 24),
                   BlocBuilder<PromptCubit, PromptState>(
@@ -140,6 +138,7 @@ class _PromptScreenState extends State<PromptScreen> {
                         label: AppLocalizations.of(context)!.startGame,
                         icon: Icons.play_arrow,
                         isLoading: state is PromptLoading,
+                        isActive: !_isOffline,
                       );
                     },
                   ),
