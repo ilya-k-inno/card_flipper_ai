@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,7 +63,6 @@ class GameCubit extends Cubit<GameState> {
 
   List<CardModel> _generateImageCards(List<String> imageUrls) {
     final List<CardModel> cards = [];
-    final rng = Random();
 
     // Take up to totalPairs unique images
     final uniqueImages = imageUrls.toSet().take(totalPairs).toList();

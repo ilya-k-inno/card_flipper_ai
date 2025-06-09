@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixel_flip/src/features/game/presentation/bloc/game_cubit.dart';
 import 'package:pixel_flip/src/features/game/presentation/widgets/memory_card.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class GameScreen extends StatefulWidget {
   final List<String>? imageUrls;
@@ -60,14 +59,15 @@ class _GameScreenState extends State<GameScreen> {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
-      builder: (context) => WillPopScope(
-        onWillPop: () async {
-          // Allow back button to close dialog and return to home
+      builder: (context) => PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (didPop) return;
+          // Handle back button press
           if (Navigator.canPop(context)) {
             Navigator.of(context).pop();
             Navigator.of(context).pop();
           }
-          return false;
         },
         child: AlertDialog(
           title: const Text('Congratulations!'),
