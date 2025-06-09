@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:pixel_flip/src/core/error/exceptions.dart';
 
 abstract class PixabayDataSource {
-  Future<List<String>> searchImages(String query, {int perPage = 30});
+  Future<List<String>> searchImages(String query, {int amount = 30});
 }
 
 class PixabayDataSourceImpl implements PixabayDataSource {
@@ -17,10 +18,11 @@ class PixabayDataSourceImpl implements PixabayDataSource {
   PixabayDataSourceImpl({required this.client});
 
   @override
-  Future<List<String>> searchImages(String query, {int perPage = 30}) async {
+  Future<List<String>> searchImages(String query, {int amount = 8}) async {
     try {
+      final page = Random().nextInt(10) + 1;
       final request = Uri.parse(
-        '$_baseUrl?key=$_apiKey&q=${Uri.encodeQueryComponent(query)}&per_page=$perPage&image_type=photo',
+        '$_baseUrl?key=$_apiKey&q=${Uri.encodeQueryComponent(query)}&page=$page&per_page=$amount&image_type=photo',
       );
       final response = await client.get(request);
 

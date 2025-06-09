@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixel_flip/src/features/game/presentation/bloc/game_cubit.dart';
@@ -40,11 +41,13 @@ class _GameScreenState extends State<GameScreen> {
 
   Future<void> _preloadImages(List<String> urls) async {
     for (final url in urls) {
-      try {
-        // This will cache the image
-        await precacheImage(NetworkImage(url), context);
-      } catch (e) {
-        debugPrint('Failed to preload image: $e');
+      if (context.mounted) {
+        try {
+          // This will cache the image
+          await precacheImage(NetworkImage(url), context);
+        } catch (e) {
+          debugPrint('Failed to preload image: $e');
+        }
       }
     }
   }
