@@ -1,0 +1,129 @@
+{
+  "@@locale": "en",
+  "appTitle": "Pixel Flip",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "enterTheme": "Enter a theme for your game",
+  "@enterTheme": {
+    "description": "Hint text for theme input field"
+  },
+  "startGame": "Start Game",
+  "@startGame": {
+    "description": "Button to start the game with online images"
+  },
+  "playOffline": "Play Offline",
+  "@playOffline": {
+    "description": "Button to start the game in offline mode"
+  },
+  "searchingImages": "Searching for images...",
+  "@searchingImages": {
+    "description": "Loading message when searching for images"
+  },
+  "noInternet": "No internet connection",
+  "@noInternet": {
+    "description": "Message shown when there's no internet connection"
+  },
+  "notEnoughImages": "Not enough images found. Please try a different search term.",
+  "@notEnoughImages": {
+    "description": "Error message when not enough images are found for the search term"
+  },
+  "moves": "Moves: {moves}",
+  "@moves": {
+    "description": "Label showing number of moves made",
+    "placeholders": {
+      "moves": {}
+    }
+  },
+  "gameOver": "Game Over!",
+  "@gameOver": {
+    "description": "Title for the game over dialog"
+  },
+  "youWon": "You won in {moves} moves!",
+  "@youWon": {
+    "description": "Message shown when player wins the game",
+    "placeholders": {
+      "moves": {}
+    }
+  },
+  "playAgain": "Play Again",
+  "@playAgain": {
+    "description": "Button to play the game again"
+  },
+  "backToHome": "Back to Home",
+  "@backToHome": {
+    "description": "Button to go back to home screen"
+  },
+  "errorOccurred": "An error occurred",
+  "@errorOccurred": {
+    "description": "Generic error message"
+  },
+  "networkError": "Network error. Please check your connection.",
+  "@networkError": {
+    "description": "Message shown when a network error occurs"
+  },
+  "serverError": "Server error. Please try again later.",
+  "@serverError": {
+    "description": "Message shown when a server error occurs"
+  },
+  "rateLimitExceeded": "Rate limit exceeded. Please try again later.",
+  "@rateLimitExceeded": {
+    "description": "Message shown when API rate limit is exceeded"
+  },
+  "unauthorized": "Authentication failed. Please check your API key.",
+  "@unauthorized": {
+    "description": "Message shown when API authentication fails"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Title for settings screen"
+  },
+  "theme": "Theme",
+  "@theme": {
+    "description": "Label for theme settings"
+  },
+  "systemTheme": "System Default",
+  "@systemTheme": {
+    "description": "Option for system default theme"
+  },
+  "systemThemeDescription": "Match your device's theme",
+  "@systemThemeDescription": {
+    "description": "Description for system theme option"
+  },
+  "lightTheme": "Light",
+  "@lightTheme": {
+    "description": "Option for light theme"
+  },
+  "lightThemeDescription": "Light mode",
+  "@lightThemeDescription": {
+    "description": "Description for light theme option"
+  },
+  "darkTheme": "Dark",
+  "@darkTheme": {
+    "description": "Option for dark theme"
+  },
+  "darkThemeDescription": "Dark mode",
+  "@darkThemeDescription": {
+    "description": "Description for dark theme option"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Label for language settings"
+  },
+  "about": "About",
+  "@about": {
+    "description": "Label for about section"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Label for app version"
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Label for privacy policy"
+  },
+  "termsOfService": "Terms of Service",
+  "@termsOfService": {
+    "description": "Label for terms of service"
+  }
+}

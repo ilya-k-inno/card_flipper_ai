@@ -1,0 +1,129 @@
+{
+  "@@locale": "ru",
+  "appTitle": "Пиксельный Флип",
+  "@appTitle": {
+    "description": "Название приложения"
+  },
+  "enterTheme": "Введите тему для вашей игры",
+  "@enterTheme": {
+    "description": "Подсказка для поля ввода темы"
+  },
+  "startGame": "Начать игру",
+  "@startGame": {
+    "description": "Кнопка для начала игры с онлайн-изображениями"
+  },
+  "playOffline": "Играть офлайн",
+  "@playOffline": {
+    "description": "Кнопка для начала игры в автономном режиме"
+  },
+  "searchingImages": "Поиск изображений...",
+  "@searchingImages": {
+    "description": "Сообщение о загрузке при поиске изображений"
+  },
+  "noInternet": "Нет подключения к интернету",
+  "@noInternet": {
+    "description": "Сообщение, отображаемое при отсутствии интернет-соединения"
+  },
+  "notEnoughImages": "Недостаточно изображений. Пожалуйста, попробуйте другой поисковый запрос.",
+  "@notEnoughImages": {
+    "description": "Сообщение об ошибке, когда по запросу найдено недостаточно изображений"
+  },
+  "moves": "Ходы: {moves}",
+  "@moves": {
+    "description": "Метка, отображающая количество сделанных ходов",
+    "placeholders": {
+      "moves": {}
+    }
+  },
+  "gameOver": "Игра окончена!",
+  "@gameOver": {
+    "description": "Заголовок диалогового окна окончания игры"
+  },
+  "youWon": "Вы выиграли за {moves} ходов!",
+  "@youWon": {
+    "description": "Сообщение, отображаемое при победе игрока",
+    "placeholders": {
+      "moves": {}
+    }
+  },
+  "playAgain": "Играть снова",
+  "@playAgain": {
+    "description": "Кнопка для повторной игры"
+  },
+  "backToHome": "На главную",
+  "@backToHome": {
+    "description": "Кнопка для возврата на главный экран"
+  },
+  "errorOccurred": "Произошла ошибка",
+  "@errorOccurred": {
+    "description": "Общее сообщение об ошибке"
+  },
+  "networkError": "Ошибка сети. Пожалуйста, проверьте подключение.",
+  "@networkError": {
+    "description": "Сообщение при возникновении сетевой ошибки"
+  },
+  "serverError": "Ошибка сервера. Пожалуйста, попробуйте позже.",
+  "@serverError": {
+    "description": "Сообщение при возникновении ошибки сервера"
+  },
+  "rateLimitExceeded": "Превышен лимит запросов. Пожалуйста, повторите позже.",
+  "@rateLimitExceeded": {
+    "description": "Сообщение при превышении лимита запросов к API"
+  },
+  "unauthorized": "Ошибка аутентификации. Пожалуйста, проверьте API-ключ.",
+  "@unauthorized": {
+    "description": "Сообщение при неудачной аутентификации API"
+  },
+  "settings": "Настройки",
+  "@settings": {
+    "description": "Заголовок экрана настроек"
+  },
+  "theme": "Тема",
+  "@theme": {
+    "description": "Метка настроек темы"
+  },
+  "systemTheme": "Как в системе",
+  "@systemTheme": {
+    "description": "Опция темы по умолчанию системы"
+  },
+  "systemThemeDescription": "Следовать настройкам устройства",
+  "@systemThemeDescription": {
+    "description": "Описание опции системной темы"
+  },
+  "lightTheme": "Светлая",
+  "@lightTheme": {
+    "description": "Опция светлой темы"
+  },
+  "lightThemeDescription": "Светлый режим",
+  "@lightThemeDescription": {
+    "description": "Описание светлой темы"
+  },
+  "darkTheme": "Темная",
+  "@darkTheme": {
+    "description": "Опция темной темы"
+  },
+  "darkThemeDescription": "Темный режим",
+  "@darkThemeDescription": {
+    "description": "Описание темной темы"
+  },
+  "language": "Язык",
+  "@language": {
+    "description": "Метка настроек языка"
+  },
+  "about": "О приложении",
+  "@about": {
+    "description": "Метка раздела о приложении"
+  },
+  "version": "Версия",
+  "@version": {
+    "description": "Метка версии приложения"
+  },
+  "privacyPolicy": "Политика конфиденциальности",
+  "@privacyPolicy": {
+    "description": "Метка политики конфиденциальности"
+  },
+  "termsOfService": "Условия использования",
+  "@termsOfService": {
+    "description": "Метка условий использования"
+  }
+}

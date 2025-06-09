@@ -1,0 +1,43 @@
+name: pixel_flip
+description: "An engaging memory card game with dynamic images"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+  flutter_bloc: ^8.1.4
+  equatable: ^2.0.5
+  dartz: ^0.10.1
+  http: ^1.1.0
+  connectivity_plus: ^5.0.2
+  shared_preferences: ^2.2.2
+  cupertino_icons: ^1.0.8
+  get_it: ^8.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  bloc_test: ^9.1.3
+  mocktail: ^1.0.0
+  intl_utils: ^2.8.4
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+flutter:
+  uses-material-design: true
+  generate: true  # Enables code generation for localization
+
+  assets:
+    - assets/translations/
+    
+  # Material 3 is enabled by default in Flutter 3.0+

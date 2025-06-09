@@ -1,0 +1,129 @@
+{
+  "@@locale": "ja",
+  "appTitle": "ピクセルフリップ",
+  "@appTitle": {
+    "description": "アプリケーションのタイトル"
+  },
+  "enterTheme": "ゲームのテーマを入力してください",
+  "@enterTheme": {
+    "description": "テーマ入力フィールドのヒントテキスト"
+  },
+  "startGame": "ゲームを開始",
+  "@startGame": {
+    "description": "オンライン画像でゲームを開始するボタン"
+  },
+  "playOffline": "オフラインでプレイ",
+  "@playOffline": {
+    "description": "オフラインモードでゲームを開始するボタン"
+  },
+  "searchingImages": "画像を検索中...",
+  "@searchingImages": {
+    "description": "画像を検索中のローディングメッセージ"
+  },
+  "noInternet": "インターネット接続がありません",
+  "@noInternet": {
+    "description": "インターネット接続がない場合に表示されるメッセージ"
+  },
+  "notEnoughImages": "十分な画像が見つかりませんでした。別の検索ワードをお試しください。",
+  "@notEnoughImages": {
+    "description": "検索ワードに一致する十分な画像が見つからない場合のエラーメッセージ"
+  },
+  "moves": "移動回数: {moves}回",
+  "@moves": {
+    "description": "移動回数を表示するラベル",
+    "placeholders": {
+      "moves": {}
+    }
+  },
+  "gameOver": "ゲームオーバー！",
+  "@gameOver": {
+    "description": "ゲームオーバーダイアログのタイトル"
+  },
+  "youWon": "{moves}回でクリアしました！",
+  "@youWon": {
+    "description": "プレイヤーがゲームに勝利したときに表示されるメッセージ",
+    "placeholders": {
+      "moves": {}
+    }
+  },
+  "playAgain": "もう一度遊ぶ",
+  "@playAgain": {
+    "description": "もう一度プレイするボタン"
+  },
+  "backToHome": "ホームに戻る",
+  "@backToHome": {
+    "description": "ホーム画面に戻るボタン"
+  },
+  "errorOccurred": "エラーが発生しました",
+  "@errorOccurred": {
+    "description": "一般的なエラーメッセージ"
+  },
+  "networkError": "ネットワークエラー。接続を確認してください。",
+  "@networkError": {
+    "description": "ネットワークエラーが発生したときに表示されるメッセージ"
+  },
+  "serverError": "サーバーエラー。後でもう一度お試しください。",
+  "@serverError": {
+    "description": "サーバーエラーが発生したときに表示されるメッセージ"
+  },
+  "rateLimitExceeded": "アクセス制限を超えました。しばらくしてからもう一度お試しください。",
+  "@rateLimitExceeded": {
+    "description": "APIのレート制限を超えたときに表示されるメッセージ"
+  },
+  "unauthorized": "認証に失敗しました。APIキーを確認してください。",
+  "@unauthorized": {
+    "description": "API認証が失敗したときに表示されるメッセージ"
+  },
+  "settings": "設定",
+  "@settings": {
+    "description": "設定画面のタイトル"
+  },
+  "theme": "テーマ",
+  "@theme": {
+    "description": "テーマ設定のラベル"
+  },
+  "systemTheme": "システム設定に従う",
+  "@systemTheme": {
+    "description": "システムのデフォルトテーマのオプション"
+  },
+  "systemThemeDescription": "デバイスのテーマに合わせる",
+  "@systemThemeDescription": {
+    "description": "システムテーマオプションの説明"
+  },
+  "lightTheme": "ライト",
+  "@lightTheme": {
+    "description": "ライトテーマのオプション"
+  },
+  "lightThemeDescription": "ライトモード",
+  "@lightThemeDescription": {
+    "description": "ライトテーマオプションの説明"
+  },
+  "darkTheme": "ダーク",
+  "@darkTheme": {
+    "description": "ダークテーマのオプション"
+  },
+  "darkThemeDescription": "ダークモード",
+  "@darkThemeDescription": {
+    "description": "ダークテーマオプションの説明"
+  },
+  "language": "言語",
+  "@language": {
+    "description": "言語設定のラベル"
+  },
+  "about": "アプリについて",
+  "@about": {
+    "description": "アプリ情報セクションのラベル"
+  },
+  "version": "バージョン",
+  "@version": {
+    "description": "アプリのバージョン表示ラベル"
+  },
+  "privacyPolicy": "プライバシーポリシー",
+  "@privacyPolicy": {
+    "description": "プライバシーポリシーのラベル"
+  },
+  "termsOfService": "利用規約",
+  "@termsOfService": {
+    "description": "利用規約のラベル"
+  }
+}
