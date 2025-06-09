@@ -11,7 +11,7 @@ part 'prompt_state.dart';
 class PromptCubit extends Cubit<PromptState> {
   final GameRepository gameRepository;
   final ConnectivityService connectivityService;
-  
+
   StreamSubscription? _connectivitySubscription;
   bool _isConnected = true;
 
@@ -20,7 +20,8 @@ class PromptCubit extends Cubit<PromptState> {
     required this.connectivityService,
   }) : super(const PromptInitial()) {
     // Listen to connectivity changes
-    _connectivitySubscription = connectivityService.onConnectivityChanged.listen(
+    _connectivitySubscription =
+        connectivityService.onConnectivityChanged.listen(
       (isConnected) {
         _isConnected = isConnected;
         if (state is PromptLoaded) {
@@ -35,16 +36,21 @@ class PromptCubit extends Cubit<PromptState> {
         }
       },
     );
-    
+
     // Initial connectivity check
     _checkConnectivity();
   }
 
-  Future<void> _checkConnectivity() async {
+  Future<bool> checkConnectivity() async {
     _isConnected = await connectivityService.isConnected;
     if (_isConnected != state.isOnline) {
       emit(state.copyWith(isOnline: _isConnected));
     }
+    return _isConnected;
+  }
+
+  Future<void> _checkConnectivity() async {
+    await checkConnectivity();
   }
 
   Future<void> searchImages(String query) async {
@@ -56,15 +62,17 @@ class PromptCubit extends Cubit<PromptState> {
     emit(const PromptLoading());
 
     if (!_isConnected) {
-      emit(PromptError(
-        'No internet connection. Please check your connection and try again.',
-        isOnline: false,
-      ));
+      emit(
+        const PromptError(
+          'No internet connection. Please check your connection and try again.',
+          isOnline: false,
+        ),
+      );
       return;
     }
 
     final result = await gameRepository.searchImages(query);
-    
+
     result.fold(
       (failure) {
         emit(PromptError(

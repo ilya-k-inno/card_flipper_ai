@@ -8,7 +8,7 @@ import 'package:pixel_flip/src/features/game/domain/repositories/game_repository
 
 class GameRepositoryImpl implements GameRepository {
   final PixabayDataSource remoteDataSource;
-  
+
   GameRepositoryImpl({
     required this.remoteDataSource,
   });
@@ -18,7 +18,7 @@ class GameRepositoryImpl implements GameRepository {
     try {
       final images = await remoteDataSource.searchImages(query);
       return Right(images);
-    } on UnauthorizedException catch (e) {
+    } on UnauthorizedException catch (_) {
       return const Left(UnauthorizedFailure('Invalid API key'));
     } on RateLimitExceededException {
       return const Left(RateLimitExceededFailure('API rate limit exceeded'));
@@ -26,9 +26,7 @@ class GameRepositoryImpl implements GameRepository {
       return Left(ServerFailure(e.message));
     } on NetworkException catch (e) {
       return Left(NetworkFailure(e.message));
-    } on NoInternetException {
-      return const Left(NoInternetFailure());
-    } catch (e) {
+    } on Exception catch (e) {
       return Left(ServerFailure('An unexpected error occurred: $e'));
     }
   }

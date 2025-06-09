@@ -17,37 +17,37 @@ final sl = GetIt.instance;
 Future<void> init() async {
   // External
   sl.registerLazySingleton(() => http.Client());
-  
+
   // Shared Preferences
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
-  
+
   // Services
   sl.registerLazySingleton<ConnectivityService>(
     () => ConnectivityServiceImpl(),
   );
-  
+
   // Data sources
   sl.registerLazySingleton<PixabayDataSource>(
     () => PixabayDataSourceImpl(client: sl()),
   );
-  
+
   // Repository
   sl.registerLazySingleton<GameRepository>(
     () => GameRepositoryImpl(
       remoteDataSource: sl(),
     ),
   );
-  
+
   // Settings
   sl.registerLazySingleton<SettingsRepository>(
     () => SettingsRepositoryImpl(sl()),
   );
-  
+
   sl.registerLazySingleton(
     () => SettingsCubit(sl()),
   );
-  
+
   // BLoCs / Cubits
   sl.registerFactory(
     () => PromptCubit(
@@ -55,7 +55,7 @@ Future<void> init() async {
       connectivityService: sl(),
     ),
   );
-  
+
   sl.registerFactory(
     () => GameCubit(),
   );

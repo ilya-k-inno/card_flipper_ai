@@ -35,11 +35,11 @@ class SettingsRepositoryImpl implements SettingsRepository {
   Locale getLocale() {
     final languageCode = _prefs.getString(AppConfig.languageCodeKey);
     final countryCode = _prefs.getString(AppConfig.countryCodeKey);
-    
+
     if (languageCode != null) {
       return Locale(languageCode, countryCode);
     }
-    
+
     return const Locale('en');
   }
 
@@ -50,7 +50,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       if (locale.countryCode != null)
         _prefs.setString(AppConfig.countryCodeKey, locale.countryCode!),
     ]);
-    
+
     _localeController.add(locale);
   }
 

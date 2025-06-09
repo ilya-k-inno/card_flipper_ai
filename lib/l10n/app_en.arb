@@ -16,6 +16,10 @@
   "@playOffline": {
     "description": "Button to start the game in offline mode"
   },
+  "or": "OR",
+  "@or": {
+    "description": "Text shown between buttons"
+  },
   "searchingImages": "Searching for images...",
   "@searchingImages": {
     "description": "Loading message when searching for images"

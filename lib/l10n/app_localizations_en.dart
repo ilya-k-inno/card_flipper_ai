@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -21,13 +22,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get playOffline => 'Play Offline';
 
   @override
+  String get or => 'OR';
+
+  @override
   String get searchingImages => 'Searching for images...';
 
   @override
   String get noInternet => 'No internet connection';
 
   @override
-  String get notEnoughImages => 'Not enough images found. Please try a different search term.';
+  String get notEnoughImages =>
+      'Not enough images found. Please try a different search term.';
 
   @override
   String moves(Object moves) {
@@ -58,10 +63,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get serverError => 'Server error. Please try again later.';
 
   @override
-  String get rateLimitExceeded => 'Rate limit exceeded. Please try again later.';
+  String get rateLimitExceeded =>
+      'Rate limit exceeded. Please try again later.';
 
   @override
-  String get unauthorized => 'Authentication failed. Please check your API key.';
+  String get unauthorized =>
+      'Authentication failed. Please check your API key.';
 
   @override
   String get settings => 'Settings';

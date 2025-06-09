@@ -12,7 +12,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.settings),
@@ -46,7 +46,7 @@ class SettingsScreen extends StatelessWidget {
   ) {
     final l10n = context.l10n;
     final colorScheme = theme.colorScheme;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -54,7 +54,7 @@ class SettingsScreen extends StatelessWidget {
           l10n.theme,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface.withOpacity(0.7),
+            color: colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
         const SizedBox(height: 12.0),
@@ -71,7 +71,9 @@ class SettingsScreen extends StatelessWidget {
                 subtitle: l10n.systemThemeDescription,
                 icon: Icons.brightness_auto,
                 isSelected: state.themeMode == ThemeMode.system,
-                onTap: () => context.read<SettingsCubit>().setThemeMode(ThemeMode.system),
+                onTap: () => context
+                    .read<SettingsCubit>()
+                    .setThemeMode(ThemeMode.system),
               ),
               const Divider(height: 1, indent: 16.0, endIndent: 16.0),
               _buildThemeOption(
@@ -80,7 +82,8 @@ class SettingsScreen extends StatelessWidget {
                 subtitle: l10n.lightThemeDescription,
                 icon: Icons.light_mode_outlined,
                 isSelected: state.themeMode == ThemeMode.light,
-                onTap: () => context.read<SettingsCubit>().setThemeMode(ThemeMode.light),
+                onTap: () =>
+                    context.read<SettingsCubit>().setThemeMode(ThemeMode.light),
               ),
               const Divider(height: 1, indent: 16.0, endIndent: 16.0),
               _buildThemeOption(
@@ -89,7 +92,8 @@ class SettingsScreen extends StatelessWidget {
                 subtitle: l10n.darkThemeDescription,
                 icon: Icons.dark_mode_outlined,
                 isSelected: state.themeMode == ThemeMode.dark,
-                onTap: () => context.read<SettingsCubit>().setThemeMode(ThemeMode.dark),
+                onTap: () =>
+                    context.read<SettingsCubit>().setThemeMode(ThemeMode.dark),
               ),
             ],
           ),
@@ -108,7 +112,7 @@ class SettingsScreen extends StatelessWidget {
   }) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8.0),
@@ -119,15 +123,16 @@ class SettingsScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: isSelected 
-                    ? colorScheme.primary.withOpacity(0.1)
-                    : colorScheme.surfaceVariant.withOpacity(0.5),
+                color: isSelected
+                    ? colorScheme.primary.withValues(alpha: 0.1)
+                    : colorScheme.surfaceContainerHighest
+                        .withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Icon(
                 icon,
-                color: isSelected 
-                    ? colorScheme.primary 
+                color: isSelected
+                    ? colorScheme.primary
                     : colorScheme.onSurfaceVariant,
                 size: 20.0,
               ),
@@ -141,8 +146,8 @@ class SettingsScreen extends StatelessWidget {
                     title,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: isSelected 
-                          ? colorScheme.primary 
+                      color: isSelected
+                          ? colorScheme.primary
                           : colorScheme.onSurface,
                     ),
                   ),
@@ -177,7 +182,7 @@ class SettingsScreen extends StatelessWidget {
     final l10n = context.l10n;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -185,7 +190,7 @@ class SettingsScreen extends StatelessWidget {
           l10n.language,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface.withOpacity(0.7),
+            color: colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
         const SizedBox(height: 12.0),
@@ -203,7 +208,8 @@ class SettingsScreen extends StatelessWidget {
                 languageCode: 'en',
                 flag: '🇬🇧',
                 isSelected: state.locale.languageCode == 'en',
-                onTap: () => context.read<SettingsCubit>().setLocale(const Locale('en')),
+                onTap: () =>
+                    context.read<SettingsCubit>().setLocale(const Locale('en')),
               ),
               const Divider(height: 1, indent: 16.0, endIndent: 16.0),
               _buildLanguageOption(
@@ -213,7 +219,8 @@ class SettingsScreen extends StatelessWidget {
                 languageCode: 'ja',
                 flag: '🇯🇵',
                 isSelected: state.locale.languageCode == 'ja',
-                onTap: () => context.read<SettingsCubit>().setLocale(const Locale('ja')),
+                onTap: () =>
+                    context.read<SettingsCubit>().setLocale(const Locale('ja')),
               ),
               const Divider(height: 1, indent: 16.0, endIndent: 16.0),
               _buildLanguageOption(
@@ -223,7 +230,8 @@ class SettingsScreen extends StatelessWidget {
                 languageCode: 'ru',
                 flag: '🇷🇺',
                 isSelected: state.locale.languageCode == 'ru',
-                onTap: () => context.read<SettingsCubit>().setLocale(const Locale('ru')),
+                onTap: () =>
+                    context.read<SettingsCubit>().setLocale(const Locale('ru')),
               ),
             ],
           ),
@@ -231,7 +239,7 @@ class SettingsScreen extends StatelessWidget {
       ],
     );
   }
-  
+
   Widget _buildLanguageOption(
     BuildContext context, {
     required String title,
@@ -243,7 +251,7 @@ class SettingsScreen extends StatelessWidget {
   }) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8.0),
@@ -256,7 +264,8 @@ class SettingsScreen extends StatelessWidget {
               height: 30,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: colorScheme.surfaceVariant.withOpacity(0.5),
+                color:
+                    colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(6.0),
               ),
               child: Text(
@@ -273,8 +282,8 @@ class SettingsScreen extends StatelessWidget {
                     title,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: isSelected 
-                          ? colorScheme.primary 
+                      color: isSelected
+                          ? colorScheme.primary
                           : colorScheme.onSurface,
                     ),
                   ),
@@ -306,7 +315,7 @@ class SettingsScreen extends StatelessWidget {
   ) {
     final l10n = context.l10n;
     final colorScheme = theme.colorScheme;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -314,7 +323,7 @@ class SettingsScreen extends StatelessWidget {
           l10n.about,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface.withOpacity(0.7),
+            color: colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
         const SizedBox(height: 12.0),
@@ -328,11 +337,12 @@ class SettingsScreen extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.info_outline, color: colorScheme.primary),
                 title: Text(l10n.version),
-                subtitle: Text(AppConfig.appVersion),
+                subtitle: const Text(AppConfig.appVersion),
               ),
               const Divider(height: 1),
               ListTile(
-                leading: Icon(Icons.privacy_tip_outlined, color: colorScheme.primary),
+                leading: Icon(Icons.privacy_tip_outlined,
+                    color: colorScheme.primary),
                 title: Text(l10n.privacyPolicy),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
@@ -341,7 +351,8 @@ class SettingsScreen extends StatelessWidget {
               ),
               const Divider(height: 1),
               ListTile(
-                leading: Icon(Icons.description_outlined, color: colorScheme.primary),
+                leading: Icon(Icons.description_outlined,
+                    color: colorScheme.primary),
                 title: Text(l10n.termsOfService),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {

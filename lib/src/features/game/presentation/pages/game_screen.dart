@@ -23,10 +23,11 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    _gameCubit = GameCubit()..initializeGame(
-      widget.imageUrls,
-      isOfflineMode: widget.isOfflineMode,
-    );
+    _gameCubit = GameCubit()
+      ..initializeGame(
+        widget.imageUrls,
+        isOfflineMode: widget.isOfflineMode,
+      );
   }
 
   @override
@@ -35,29 +36,39 @@ class _GameScreenState extends State<GameScreen> {
     super.dispose();
   }
 
-  void _showGameOverDialog(int moves) {
-    showDialog(
+  Future<void> _showGameOverDialog(int moves) async {
+    return showDialog<void>(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: const Text('Congratulations!'),
-        content: Text('You won in $moves moves!'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _gameCubit.resetGame();
-            },
-            child: const Text('Play Again'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            },
-            child: const Text('Back to Home'),
-          ),
-        ],
+      builder: (context) => WillPopScope(
+        onWillPop: () async {
+          // Allow back button to close dialog and return to home
+          if (Navigator.canPop(context)) {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+          }
+          return false;
+        },
+        child: AlertDialog(
+          title: const Text('Congratulations!'),
+          content: Text('You won in $moves moves!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _gameCubit.resetGame();
+              },
+              child: const Text('Play Again'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: const Text('Back to Home'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -73,6 +84,12 @@ class _GameScreenState extends State<GameScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           title: BlocBuilder<GameCubit, GameState>(
             bloc: _gameCubit,
             builder: (context, state) {
@@ -85,8 +102,11 @@ class _GameScreenState extends State<GameScreen> {
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),
-              onPressed: () {
-                Navigator.pushNamed(context, '/settings');
+              onPressed: () async {
+                await Navigator.pushNamed(context, '/settings');
+                if (mounted) {
+                  setState(() {});
+                }
               },
             ),
             IconButton(
@@ -105,7 +125,8 @@ class _GameScreenState extends State<GameScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                    const Icon(Icons.error_outline,
+                        size: 48, color: Colors.red),
                     const SizedBox(height: 16),
                     Text(state.message),
                     const SizedBox(height: 16),

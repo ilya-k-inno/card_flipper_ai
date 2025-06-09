@@ -15,18 +15,15 @@ abstract class Failure extends Equatable {
 
 // General failures
 class ServerFailure extends Failure {
-  const ServerFailure(String message, {StackTrace? stackTrace}) 
-      : super(message, stackTrace: stackTrace);
+  const ServerFailure(super.message, {super.stackTrace});
 }
 
 class CacheFailure extends Failure {
-  const CacheFailure(String message, {StackTrace? stackTrace}) 
-      : super(message, stackTrace: stackTrace);
+  const CacheFailure(super.message, {super.stackTrace});
 }
 
 class NetworkFailure extends Failure {
-  const NetworkFailure(String message, {StackTrace? stackTrace}) 
-      : super(message, stackTrace: stackTrace);
+  const NetworkFailure(super.message, {super.stackTrace});
 }
 
 class NoInternetFailure extends NetworkFailure {
@@ -35,23 +32,19 @@ class NoInternetFailure extends NetworkFailure {
 
 // Game-specific failures
 class GameInitializationFailure extends Failure {
-  const GameInitializationFailure(String message, {StackTrace? stackTrace}) 
-      : super(message, stackTrace: stackTrace);
+  const GameInitializationFailure(super.message, {super.stackTrace});
 }
 
 // API-specific failures
 class UnauthorizedFailure extends Failure {
-  const UnauthorizedFailure(String message, {StackTrace? stackTrace}) 
-      : super(message, stackTrace: stackTrace);
+  const UnauthorizedFailure(super.message, {super.stackTrace});
 }
 
 class RateLimitExceededFailure extends Failure {
-  const RateLimitExceededFailure(String message, {StackTrace? stackTrace}) 
-      : super(message, stackTrace: stackTrace);
+  const RateLimitExceededFailure(super.message, {super.stackTrace});
 }
 
 // Localization failures
 class LocalizationFailure extends Failure {
-  const LocalizationFailure(String message, {StackTrace? stackTrace}) 
-      : super(message, stackTrace: stackTrace);
+  const LocalizationFailure(super.message, {super.stackTrace});
 }

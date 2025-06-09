@@ -15,7 +15,8 @@ class MemoryCard extends StatefulWidget {
   State<MemoryCard> createState() => _MemoryCardState();
 }
 
-class _MemoryCardState extends State<MemoryCard> with SingleTickerProviderStateMixin {
+class _MemoryCardState extends State<MemoryCard>
+    with SingleTickerProviderStateMixin {
   static const Duration flipDuration = Duration(milliseconds: 300);
   late AnimationController _controller;
   late Animation<double> _flipAnimation;
@@ -83,7 +84,7 @@ class _MemoryCardState extends State<MemoryCard> with SingleTickerProviderStateM
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -127,11 +128,15 @@ class _MemoryCardState extends State<MemoryCard> with SingleTickerProviderStateM
                   ),
                 )
               : Center(
-                  child: Text(
-                    widget.card.value,
-                    style: const TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                  child: Transform(
+                    transform: Matrix4.identity()..rotateY(3.14159), // 180 degrees in radians
+                    alignment: Alignment.center,
+                    child: Text(
+                      widget.card.value,
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

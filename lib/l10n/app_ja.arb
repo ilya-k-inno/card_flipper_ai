@@ -16,6 +16,10 @@
   "@playOffline": {
     "description": "オフラインモードでゲームを開始するボタン"
   },
+  "or": "または",
+  "@or": {
+    "description": "ボタン間に表示されるテキスト"
+  },
   "searchingImages": "画像を検索中...",
   "@searchingImages": {
     "description": "画像を検索中のローディングメッセージ"
