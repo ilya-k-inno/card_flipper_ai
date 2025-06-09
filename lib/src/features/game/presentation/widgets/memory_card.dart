@@ -105,7 +105,7 @@ class _MemoryCardState extends State<MemoryCard> with TickerProviderStateMixin {
     return GestureDetector(
       onTap: widget.card.isMatched ? null : widget.onTap,
       child: AnimatedBuilder(
-        animation: _flipAnimation,
+        animation: Listenable.merge([_flipAnimation, _matchAnimation]),
         builder: (context, child) {
           final angle = _flipAnimation.value * 3.14159;
           final transform = Matrix4.identity()
@@ -113,23 +113,52 @@ class _MemoryCardState extends State<MemoryCard> with TickerProviderStateMixin {
             ..rotateY(angle);
 
           final isFront = _flipAnimation.value > 0.5;
+          final isMatched = widget.card.isMatched;
 
-          return Transform(
-            transform: transform,
+          return Stack(
             alignment: Alignment.center,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
+            children: [
+              // Card with flip animation
+              Positioned.fill(
+                child: Transform(
+                  transform: transform,
+                  alignment: Alignment.center,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: isFront ? _buildFront() : _buildBack(),
                   ),
-                ],
+                ),
               ),
-              child: isFront ? _buildFront() : _buildBack(),
-            ),
+              // Checkmark overlay (outside of the flip transform)
+              if (isMatched)
+                Positioned.fill(
+                  child: Opacity(
+                    opacity: _matchAnimation.value,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.7),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Center(
+                        child: Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                          size: 48,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           );
         },
       ),
@@ -137,7 +166,7 @@ class _MemoryCardState extends State<MemoryCard> with TickerProviderStateMixin {
   }
 
   Widget _buildFront() {
-    final content = widget.card.isImageCard
+    return widget.card.isImageCard
         ? ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.network(
@@ -168,43 +197,6 @@ class _MemoryCardState extends State<MemoryCard> with TickerProviderStateMixin {
               ),
             ),
           );
-
-    final checkmark = Container(
-      decoration: BoxDecoration(
-        color: Colors.green.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: const Center(
-        child: Icon(
-          Icons.check_circle,
-          color: Colors.green,
-          size: 48,
-        ),
-      ),
-    );
-
-    return AnimatedBuilder(
-      animation: _matchAnimation,
-      builder: (context, child) {
-        return Stack(
-          fit: StackFit.expand,
-          children: [
-            // Card content
-            Opacity(
-              opacity: 1 - _matchAnimation.value,
-              child: content,
-            ),
-            // Checkmark overlay
-            Positioned.fill(
-              child: Opacity(
-                opacity: _matchAnimation.value,
-                child: checkmark,
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   Widget _buildBack() {
