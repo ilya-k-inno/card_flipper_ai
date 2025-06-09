@@ -36,6 +36,8 @@ class GameCubit extends Cubit<GameState> {
         cards: cards,
         moves: 0,
         matches: 0,
+        imageUrls: isOfflineMode ? null : imageUrls,
+        isOfflineMode: isOfflineMode,
       ));
     } catch (e) {
       emit(GameError('Failed to initialize game: $e'));
@@ -164,6 +166,8 @@ class GameCubit extends Cubit<GameState> {
               cards: updatedCards,
               moves: moves,
               matches: newMatches,
+              imageUrls: currentState.imageUrls,
+              isOfflineMode: currentState.isOfflineMode,
             ));
           } else {
             emit(currentState.copyWith(
@@ -208,11 +212,13 @@ class GameCubit extends Cubit<GameState> {
     _flipBackTimer = null;
 
     final currentState = state;
-    if (currentState is GameInProgress || currentState is GameWon) {
-      final isOfflineMode = (currentState as GameInProgress)
-          .cards
-          .any((card) => !card.isImageCard);
-      initializeGame(null, isOfflineMode: isOfflineMode);
+    if (currentState is GameInProgress) {
+      // Use the stored offline mode and image URLs from the current state
+      if (currentState.isOfflineMode) {
+        initializeGame(null, isOfflineMode: true);
+      } else {
+        initializeGame(currentState.imageUrls, isOfflineMode: false);
+      }
     } else {
       emit(const GameInitial());
     }
