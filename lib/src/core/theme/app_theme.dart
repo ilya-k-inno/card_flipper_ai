@@ -5,7 +5,7 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue,
+      seedColor: Colors.green,
       brightness: Brightness.light,
     ),
     appBarTheme: const AppBarTheme(
@@ -32,7 +32,7 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue,
+      seedColor: Colors.purple,
       brightness: Brightness.dark,
     ),
     appBarTheme: const AppBarTheme(

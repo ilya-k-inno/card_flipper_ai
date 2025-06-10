@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -31,8 +30,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noInternet => 'Нет подключения к интернету';
 
   @override
-  String get notEnoughImages =>
-      'Недостаточно изображений. Пожалуйста, попробуйте другой поисковый запрос.';
+  String get notEnoughImages => 'Недостаточно изображений. Пожалуйста, попробуйте другой поисковый запрос.';
 
   @override
   String moves(Object moves) {
@@ -63,12 +61,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get serverError => 'Ошибка сервера. Пожалуйста, попробуйте позже.';
 
   @override
-  String get rateLimitExceeded =>
-      'Превышен лимит запросов. Пожалуйста, повторите позже.';
+  String get rateLimitExceeded => 'Превышен лимит запросов. Пожалуйста, повторите позже.';
 
   @override
-  String get unauthorized =>
-      'Ошибка аутентификации. Пожалуйста, проверьте API-ключ.';
+  String get unauthorized => 'Ошибка аутентификации. Пожалуйста, проверьте API-ключ.';
 
   @override
   String get settings => 'Настройки';

@@ -202,12 +202,15 @@ class _MemoryCardState extends State<MemoryCard> with TickerProviderStateMixin {
   Widget _buildBack() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Colors.blue, Colors.indigo],
+          colors: [
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).colorScheme.primaryContainer,
+          ],
         ),
         boxShadow: [
           BoxShadow(
