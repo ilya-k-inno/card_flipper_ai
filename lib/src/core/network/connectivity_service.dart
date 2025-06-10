@@ -17,7 +17,9 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
   ConnectivityServiceImpl() {
     _subscription = _connectivity.onConnectivityChanged.listen((result) {
-      _controller.add(_isConnected(result));
+      _controller.add(
+        _isConnected(result),
+      );
     });
   }
 
@@ -31,9 +33,8 @@ class ConnectivityServiceImpl implements ConnectivityService {
   }
 
   bool _isConnected(ConnectivityResult result) {
-    return result == ConnectivityResult.wifi ||
-        result == ConnectivityResult.ethernet ||
-        result == ConnectivityResult.mobile;
+    return result != ConnectivityResult.bluetooth &&
+        result != ConnectivityResult.none;
   }
 
   @override

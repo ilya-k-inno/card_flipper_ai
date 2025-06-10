@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pixel_flip/src/features/game/presentation/bloc/prompt_cubit.dart';
-import 'package:pixel_flip/src/features/game/presentation/pages/game_screen.dart';
-import 'package:pixel_flip/src/features/game/presentation/widgets/primary_button.dart';
+import 'package:pixel_flip/src/core/widgets/primary_button.dart';
+import 'package:pixel_flip/src/features/game/presentation/game/game_screen.dart';
+import 'package:pixel_flip/src/features/game/presentation/prompt/bloc/prompt_cubit.dart';
 
 import '../../../../../l10n/app_localizations.dart';
 
@@ -16,20 +16,11 @@ class PromptScreen extends StatefulWidget {
 class _PromptScreenState extends State<PromptScreen> {
   final _formKey = GlobalKey<FormState>();
   final _searchController = TextEditingController();
-  bool _isOffline = false;
 
   @override
   void initState() {
     super.initState();
     // Check connectivity status when the screen loads
-    _checkConnectivity();
-  }
-
-  Future<void> _checkConnectivity() async {
-    final isConnected = await context.read<PromptCubit>().checkConnectivity();
-    setState(() {
-      _isOffline = !isConnected;
-    });
   }
 
   void _startGame() {
@@ -118,22 +109,18 @@ class _PromptScreenState extends State<PromptScreen> {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(height: 32),
-                        IgnorePointer(
-                          ignoring: _isOffline,
-                          child: TextFormField(
-                            controller: _searchController,
-                            decoration: InputDecoration(
-                              labelText:
-                                  AppLocalizations.of(context)!.enterTheme,
-                              prefixIcon: const Icon(Icons.search),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return AppLocalizations.of(context)!.enterTheme;
-                              }
-                              return null;
-                            },
+                        TextFormField(
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.enterTheme,
+                            prefixIcon: const Icon(Icons.search),
                           ),
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return AppLocalizations.of(context)!.enterTheme;
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 24),
                         BlocBuilder<PromptCubit, PromptState>(
@@ -144,7 +131,7 @@ class _PromptScreenState extends State<PromptScreen> {
                               label: AppLocalizations.of(context)!.startGame,
                               icon: Icons.play_arrow,
                               isLoading: state is PromptLoading,
-                              isActive: !_isOffline,
+                              isActive: state.isOnline,
                             );
                           },
                         ),

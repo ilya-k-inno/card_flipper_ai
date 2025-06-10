@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pixel_flip/src/features/game/presentation/bloc/game_cubit.dart';
-import 'package:pixel_flip/src/features/game/presentation/widgets/memory_card.dart';
+import 'package:pixel_flip/src/features/game/presentation/game/bloc/game_cubit.dart';
+import 'package:pixel_flip/src/features/game/presentation/game/widgets/memory_card.dart';
 
 class GameScreen extends StatefulWidget {
   final List<String>? imageUrls;

@@ -24,21 +24,12 @@ class PromptCubit extends Cubit<PromptState> {
         connectivityService.onConnectivityChanged.listen(
       (isConnected) {
         _isConnected = isConnected;
-        if (state is PromptLoaded) {
-          // Update the state to reflect the new connectivity status
-          emit((state as PromptLoaded).copyWith(isOnline: isConnected));
-        } else if (state is PromptError) {
-          // If we were in an error state, we might want to allow retry
-          emit(PromptInitial(isOnline: isConnected));
-        } else {
-          // For other states, just update the connectivity status
-          emit(state.copyWith(isOnline: isConnected));
-        }
+        emit(state.copyWith(isOnline: isConnected));
       },
     );
 
     // Initial connectivity check
-    _checkConnectivity();
+    checkConnectivity();
   }
 
   Future<bool> checkConnectivity() async {
@@ -47,10 +38,6 @@ class PromptCubit extends Cubit<PromptState> {
       emit(state.copyWith(isOnline: _isConnected));
     }
     return _isConnected;
-  }
-
-  Future<void> _checkConnectivity() async {
-    await checkConnectivity();
   }
 
   Future<void> searchImages(String query) async {
@@ -75,23 +62,28 @@ class PromptCubit extends Cubit<PromptState> {
 
     result.fold(
       (failure) {
-        emit(PromptError(
-          _mapFailureToMessage(failure),
-          isOnline: _isConnected,
-        ));
+        emit(
+          PromptError(
+            _mapFailureToMessage(failure),
+            isOnline: _isConnected,
+          ),
+        );
       },
       (imageUrls) {
         if (imageUrls.length < 8) {
-          emit(PromptError(
-            'Not enough images found. Please try a different search term.',
-            isOnline: _isConnected,
-          ));
+          emit(
+            PromptError(
+              'Not enough images found. Please try a different search term.',
+              isOnline: _isConnected,
+            ),
+          );
         } else {
-          emit(PromptLoaded(
-            imageUrls: imageUrls,
-            searchQuery: query,
-            isOnline: _isConnected,
-          ));
+          emit(
+            PromptLoaded(
+              imageUrls: imageUrls,
+              isOnline: _isConnected,
+            ),
+          );
         }
       },
     );
@@ -114,7 +106,7 @@ class PromptCubit extends Cubit<PromptState> {
   }
 
   void reset() {
-    emit(const PromptInitial(isOnline: true));
+    emit(PromptInitial(isOnline: _isConnected));
   }
 
   @override

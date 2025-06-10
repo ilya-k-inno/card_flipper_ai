@@ -7,10 +7,10 @@ import 'l10n/app_localizations.dart';
 import 'src/core/config/app_config.dart';
 import 'src/core/di/injection_container.dart' as di;
 import 'src/core/theme/app_theme.dart';
-import 'src/features/game/presentation/bloc/game_cubit.dart';
-import 'src/features/game/presentation/bloc/prompt_cubit.dart';
-import 'src/features/game/presentation/pages/game_screen.dart';
-import 'src/features/game/presentation/pages/prompt_screen.dart';
+import 'src/features/game/presentation/game/bloc/game_cubit.dart';
+import 'src/features/game/presentation/game/game_screen.dart';
+import 'src/features/game/presentation/prompt/bloc/prompt_cubit.dart';
+import 'src/features/game/presentation/prompt/prompt_screen.dart';
 import 'src/features/settings/data/repositories/settings_repository_impl.dart';
 import 'src/features/settings/domain/repositories/settings_repository.dart';
 import 'src/features/settings/presentation/cubit/settings_cubit.dart';
@@ -87,11 +87,7 @@ class PixelFlipApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: const [
-              Locale('en', ''), // English
-              Locale('ja', ''), // Japanese
-              Locale('ru', ''), // Russian
-            ],
+            supportedLocales: AppConfig.supportedLocales,
             locale:
                 settingsState is SettingsLoaded ? settingsState.locale : null,
             home: const PromptScreen(),

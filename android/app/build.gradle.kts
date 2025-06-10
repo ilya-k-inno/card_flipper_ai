@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.innowise.card_flipper_ai.card_flipper_ai"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

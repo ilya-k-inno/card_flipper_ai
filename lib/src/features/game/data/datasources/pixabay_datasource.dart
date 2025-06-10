@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
+import 'package:pixel_flip/src/core/config/app_config.dart';
 import 'package:pixel_flip/src/core/error/exceptions.dart';
 
 abstract class PixabayDataSource {
@@ -9,7 +10,7 @@ abstract class PixabayDataSource {
 }
 
 class PixabayDataSourceImpl implements PixabayDataSource {
-  static const String _baseUrl = 'https://pixabay.com/api/';
+  static const String _baseUrl = AppConfig.pixabayBaseUrl;
 
   // In a real app, move this to a secure storage or environment variable
   static const String _apiKey = String.fromEnvironment('pixabay_api_key');

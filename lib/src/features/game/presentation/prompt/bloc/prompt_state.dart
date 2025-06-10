@@ -35,16 +35,14 @@ class PromptLoading extends PromptState {
 
 class PromptLoaded extends PromptState {
   final List<String> imageUrls;
-  final String searchQuery;
 
   const PromptLoaded({
     required this.imageUrls,
-    required this.searchQuery,
     super.isOnline = true,
   });
 
   @override
-  List<Object> get props => [imageUrls, searchQuery, isOnline];
+  List<Object> get props => [imageUrls, isOnline];
 
   @override
   PromptLoaded copyWith({
@@ -54,7 +52,6 @@ class PromptLoaded extends PromptState {
   }) {
     return PromptLoaded(
       imageUrls: imageUrls ?? this.imageUrls,
-      searchQuery: searchQuery ?? this.searchQuery,
       isOnline: isOnline ?? this.isOnline,
     );
   }
