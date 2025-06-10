@@ -20,6 +20,8 @@ dependencies:
   shared_preferences: ^2.2.2
   cupertino_icons: ^1.0.8
   get_it: ^8.0.3
+  url_launcher: ^6.2.5
+  flutter_markdown: ^0.6.18
 
 dev_dependencies:
   flutter_test:

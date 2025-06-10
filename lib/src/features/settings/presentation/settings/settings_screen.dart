@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/config/app_config.dart';
 import '../../../../core/localization/app_localizations.dart';
+import '../privacy_policy/privacy_policy_screen.dart';
+import '../terms_of_service/terms_of_service_screen.dart';
 import 'bloc/settings_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -353,7 +355,11 @@ class SettingsScreen extends StatelessWidget {
                 title: Text(l10n.privacyPolicy),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
-                  // TODO: Implement privacy policy navigation
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PrivacyPolicyScreen(),
+                    ),
+                  );
                 },
               ),
               const Divider(height: 1),
@@ -363,7 +369,11 @@ class SettingsScreen extends StatelessWidget {
                 title: Text(l10n.termsOfService),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
-                  // TODO: Implement terms of service navigation
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const TermsOfServiceScreen(),
+                    ),
+                  );
                 },
               ),
             ],

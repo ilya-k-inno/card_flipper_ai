@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixel_flip/src/features/game/presentation/game/bloc/game_cubit.dart';
 import 'package:pixel_flip/src/features/game/presentation/game/widgets/memory_card.dart';
+import 'package:pixel_flip/l10n/app_localizations.dart';
 
 class GameScreen extends StatefulWidget {
   final List<String>? imageUrls;
@@ -121,7 +122,9 @@ class _GameScreenState extends State<GameScreen> {
             bloc: _gameCubit,
             builder: (context, state) {
               if (state is GameInProgress) {
-                return Text('Moves: ${state.moves}');
+                return Text(
+                  AppLocalizations.of(context)!.moves(state.moves.toString())
+                );
               }
               return const Text('Pixel Flip');
             },
