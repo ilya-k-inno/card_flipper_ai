@@ -30,7 +30,7 @@ class PrimaryButton extends StatelessWidget {
               ? theme.colorScheme.primary.withValues(alpha: 0.5)
               : theme.colorScheme.primary,
           foregroundColor: theme.colorScheme.onPrimary,
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.all(16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -47,6 +47,7 @@ class PrimaryButton extends StatelessWidget {
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 8,
                 children: [
                   if (icon != null) ...[
                     Icon(
@@ -55,16 +56,19 @@ class PrimaryButton extends StatelessWidget {
                           ? theme.colorScheme.onPrimary.withValues(alpha: 0.7)
                           : theme.colorScheme.onPrimary,
                     ),
-                    const SizedBox(width: 8),
                   ],
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: isDisabled
-                          ? theme.colorScheme.onPrimary.withValues(alpha: 0.7)
-                          : theme.colorScheme.onPrimary,
-                      fontWeight: FontWeight.w600,
+                  Flexible(
+                    child: Text(
+                      label,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: isDisabled
+                            ? theme.colorScheme.onPrimary.withValues(alpha: 0.7)
+                            : theme.colorScheme.onPrimary,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],

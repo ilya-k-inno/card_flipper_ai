@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixel_flip/src/core/widgets/primary_button.dart';
 import 'package:pixel_flip/src/features/game/presentation/game/game_screen.dart';
@@ -118,6 +119,9 @@ class _PromptScreenState extends State<PromptScreen> {
                             labelText: AppLocalizations.of(context)!.enterTheme,
                             prefixIcon: const Icon(Icons.search),
                           ),
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(25),
+                          ],
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return AppLocalizations.of(context)!.enterTheme;
@@ -126,12 +130,10 @@ class _PromptScreenState extends State<PromptScreen> {
                           },
                         ),
                         const SizedBox(height: 24),
-                        BlocConsumer<PromptCubit, PromptState>(
-                          listener: (context, state) {
-                            // Handle state changes if needed
-                          },
+                        BlocBuilder<PromptCubit, PromptState>(
                           builder: (context, state) {
                             return Column(
+                              spacing: 16,
                               children: [
                                 // Start Game Button
                                 PrimaryButton(
@@ -150,7 +152,6 @@ class _PromptScreenState extends State<PromptScreen> {
 
                                 // Play Last Game Button (only shown if there's a cached game)
                                 if (state.cachedGame != null) ...[
-                                  const SizedBox(height: 16),
                                   PrimaryButton(
                                     onPressed: state is PromptLoading
                                         ? () {}
@@ -163,10 +164,7 @@ class _PromptScreenState extends State<PromptScreen> {
                                     isActive: state is! PromptLoading,
                                   ),
                                 ],
-
-                                const SizedBox(height: 16),
                                 Text(AppLocalizations.of(context)!.or),
-                                const SizedBox(height: 16),
                                 OutlinedButton(
                                   onPressed: state is PromptLoading
                                       ? null
