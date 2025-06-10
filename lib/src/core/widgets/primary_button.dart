@@ -20,14 +20,14 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDisabled = !isActive || isLoading;
-    
+
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: isDisabled ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: isDisabled 
-              ? theme.colorScheme.primary.withOpacity(0.5)
+          backgroundColor: isDisabled
+              ? theme.colorScheme.primary.withValues(alpha: 0.5)
               : theme.colorScheme.primary,
           foregroundColor: theme.colorScheme.onPrimary,
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -51,8 +51,8 @@ class PrimaryButton extends StatelessWidget {
                   if (icon != null) ...[
                     Icon(
                       icon,
-                      color: isDisabled 
-                          ? theme.colorScheme.onPrimary.withOpacity(0.7)
+                      color: isDisabled
+                          ? theme.colorScheme.onPrimary.withValues(alpha: 0.7)
                           : theme.colorScheme.onPrimary,
                     ),
                     const SizedBox(width: 8),
@@ -61,8 +61,8 @@ class PrimaryButton extends StatelessWidget {
                     label,
                     style: TextStyle(
                       fontSize: 16,
-                      color: isDisabled 
-                          ? theme.colorScheme.onPrimary.withOpacity(0.7)
+                      color: isDisabled
+                          ? theme.colorScheme.onPrimary.withValues(alpha: 0.7)
                           : theme.colorScheme.onPrimary,
                       fontWeight: FontWeight.w600,
                     ),

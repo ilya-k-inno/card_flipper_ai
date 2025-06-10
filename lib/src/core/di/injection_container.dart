@@ -7,7 +7,6 @@ import '../../../src/features/game/data/datasources/game_cache_data_source.dart'
 import '../../../src/features/game/data/datasources/pixabay_datasource.dart';
 import '../../../src/features/game/data/repositories/game_cache_repository_impl.dart';
 import '../../../src/features/game/data/repositories/game_repository_impl.dart';
-import '../../../src/features/game/domain/entities/cached_game.dart';
 import '../../../src/features/game/domain/repositories/game_cache_repository.dart';
 import '../../../src/features/game/domain/repositories/game_repository.dart';
 import '../../features/game/presentation/game/bloc/game_cubit.dart';
