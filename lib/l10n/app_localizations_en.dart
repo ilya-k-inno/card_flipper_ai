@@ -21,6 +21,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get playOffline => 'Play Offline';
 
   @override
+  String get playLast => 'Play last:';
+
+  @override
   String get or => 'OR';
 
   @override

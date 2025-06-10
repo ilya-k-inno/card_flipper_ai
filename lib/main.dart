@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pixel_flip/src/features/game/domain/repositories/game_cache_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'l10n/app_localizations.dart';
@@ -38,6 +39,9 @@ void main() async {
       providers: [
         RepositoryProvider<SettingsRepository>.value(
           value: settingsRepository,
+        ),
+        RepositoryProvider<GameCacheRepository>(
+          create: (_) => di.sl<GameCacheRepository>(),
         ),
       ],
       child: PixelFlipApp(settingsCubit: settingsCubit),

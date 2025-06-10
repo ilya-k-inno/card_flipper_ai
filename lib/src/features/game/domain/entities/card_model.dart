@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-class CardModel extends Equatable {
+class CardModel {
   final String id;
   final String value;
   final String? imageUrl;
@@ -32,7 +30,4 @@ class CardModel extends Equatable {
       isMatched: isMatched ?? this.isMatched,
     );
   }
-
-  @override
-  List<Object?> get props => [id, value, imageUrl, isFaceUp, isMatched];
 }

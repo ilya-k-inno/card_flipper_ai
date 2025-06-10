@@ -58,9 +58,12 @@ class _PromptScreenState extends State<PromptScreen> {
               builder: (context) => GameScreen(
                 imageUrls: state.imageUrls,
                 isOfflineMode: false,
+                prompt: state.searchQuery,
               ),
             ),
           );
+          // Clear the search field after successful navigation
+          _searchController.clear();
         } else if (state is PromptLoaded) {
           // No images found, show error
           ScaffoldMessenger.of(context).showSnackBar(
@@ -123,25 +126,57 @@ class _PromptScreenState extends State<PromptScreen> {
                           },
                         ),
                         const SizedBox(height: 24),
-                        BlocBuilder<PromptCubit, PromptState>(
+                        BlocConsumer<PromptCubit, PromptState>(
+                          listener: (context, state) {
+                            // Handle state changes if needed
+                          },
                           builder: (context, state) {
-                            return PrimaryButton(
-                              onPressed:
-                                  state is PromptLoading ? () {} : _startGame,
-                              label: AppLocalizations.of(context)!.startGame,
-                              icon: Icons.play_arrow,
-                              isLoading: state is PromptLoading,
-                              isActive: state.isOnline,
+                            return Column(
+                              children: [
+                                // Start Game Button
+                                PrimaryButton(
+                                  onPressed: state is PromptLoading
+                                      ? () {}
+                                      : _startGame,
+                                  label: state is PromptLoading
+                                      ? AppLocalizations.of(context)!
+                                          .searchingImages
+                                      : AppLocalizations.of(context)!.startGame,
+                                  icon: Icons.play_arrow,
+                                  isLoading: state is PromptLoading,
+                                  isActive:
+                                      state.isOnline && state is! PromptLoading,
+                                ),
+
+                                // Play Last Game Button (only shown if there's a cached game)
+                                if (state.cachedGame != null) ...[
+                                  const SizedBox(height: 16),
+                                  PrimaryButton(
+                                    onPressed: state is PromptLoading
+                                        ? () {}
+                                        : () => context
+                                            .read<PromptCubit>()
+                                            .playCachedGame(),
+                                    label:
+                                        '${AppLocalizations.of(context)!.playLast} ${state.cachedGame?.prompt ?? ''}',
+                                    icon: Icons.replay,
+                                    isActive: state is! PromptLoading,
+                                  ),
+                                ],
+
+                                const SizedBox(height: 16),
+                                Text(AppLocalizations.of(context)!.or),
+                                const SizedBox(height: 16),
+                                OutlinedButton(
+                                  onPressed: state is PromptLoading
+                                      ? null
+                                      : _startOfflineGame,
+                                  child: Text(AppLocalizations.of(context)!
+                                      .playOffline),
+                                ),
+                              ],
                             );
                           },
-                        ),
-                        const SizedBox(height: 16),
-                        Text(AppLocalizations.of(context)!.or),
-                        const SizedBox(height: 16),
-                        OutlinedButton(
-                          onPressed: _startOfflineGame,
-                          child:
-                              Text(AppLocalizations.of(context)!.playOffline),
                         ),
                         const Spacer(),
                         const SizedBox(height: 20),

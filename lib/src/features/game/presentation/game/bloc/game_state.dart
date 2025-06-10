@@ -1,10 +1,7 @@
 part of 'game_cubit.dart';
 
-abstract class GameState extends Equatable {
+abstract class GameState {
   const GameState();
-
-  @override
-  List<Object?> get props => [];
 }
 
 class GameInitial extends GameState {
@@ -45,9 +42,6 @@ class GameInProgress extends GameState {
       isOfflineMode: isOfflineMode ?? this.isOfflineMode,
     );
   }
-
-  @override
-  List<Object?> get props => [cards, moves, matches, imageUrls, isOfflineMode];
 }
 
 class GameWon extends GameInProgress {
@@ -64,7 +58,4 @@ class GameError extends GameState {
   final String message;
 
   const GameError(this.message);
-
-  @override
-  List<Object> get props => [message];
 }

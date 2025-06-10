@@ -8,11 +8,13 @@ import 'package:pixel_flip/src/features/game/presentation/game/widgets/memory_ca
 class GameScreen extends StatefulWidget {
   final List<String>? imageUrls;
   final bool isOfflineMode;
+  final String? prompt;
 
   const GameScreen({
     super.key,
     this.imageUrls,
     this.isOfflineMode = false,
+    this.prompt,
   });
 
   @override
@@ -26,12 +28,14 @@ class _GameScreenState extends State<GameScreen> {
   void initState() {
     super.initState();
     _gameCubit = GameCubit();
+
     // Initialize game with the provided images or in offline mode
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _gameCubit.initializeGame(
         widget.imageUrls,
         isOfflineMode: widget.isOfflineMode,
       );
+
       // Preload images if any
       if (widget.imageUrls != null) {
         _preloadImages(widget.imageUrls!);
@@ -41,7 +45,7 @@ class _GameScreenState extends State<GameScreen> {
 
   Future<void> _preloadImages(List<String> urls) async {
     for (final url in urls) {
-      if (context.mounted) {
+      if (mounted && context.mounted) {
         try {
           // This will cache the image
           await precacheImage(NetworkImage(url), context);

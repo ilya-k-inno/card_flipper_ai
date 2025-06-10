@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixel_flip/src/core/error/failures.dart';
 import 'package:pixel_flip/src/core/network/connectivity_service.dart';
+import 'package:pixel_flip/src/features/game/domain/entities/cached_game.dart';
+import 'package:pixel_flip/src/features/game/domain/repositories/game_cache_repository.dart';
 import 'package:pixel_flip/src/features/game/domain/repositories/game_repository.dart';
 
 part 'prompt_state.dart';
@@ -11,6 +12,7 @@ part 'prompt_state.dart';
 class PromptCubit extends Cubit<PromptState> {
   final GameRepository gameRepository;
   final ConnectivityService connectivityService;
+  final GameCacheRepository cacheRepository;
 
   StreamSubscription? _connectivitySubscription;
   bool _isConnected = true;
@@ -18,7 +20,11 @@ class PromptCubit extends Cubit<PromptState> {
   PromptCubit({
     required this.gameRepository,
     required this.connectivityService,
+    required this.cacheRepository,
   }) : super(const PromptInitial()) {
+    // Load cached game on initialization
+    _loadCachedGame();
+
     // Listen to connectivity changes
     _connectivitySubscription =
         connectivityService.onConnectivityChanged.listen(
@@ -40,13 +46,55 @@ class PromptCubit extends Cubit<PromptState> {
     return _isConnected;
   }
 
+  Future<void> _loadCachedGame() async {
+    final cachedGame = await cacheRepository.getLastPlayedGame();
+    emit(state.copyWith(cachedGame: cachedGame));
+  }
+
+  Future<void> cacheGame(CachedGame game) async {
+    await cacheRepository.cacheGame(game);
+    emit(state.copyWith(
+      cachedGame: game,
+    ));
+  }
+
+  void playCachedGame() {
+    if (state.cachedGame != null) {
+      emit(
+        PromptLoaded(
+          imageUrls: state.cachedGame!.imageUrls,
+          isOnline: _isConnected,
+          searchQuery: state.cachedGame!.prompt,
+          cachedGame: state.cachedGame,
+        ),
+      );
+    } else {
+      // If cached game is not available, emit current state with hasCachedGame false
+      emit(
+        PromptError(
+          'Cached game not found',
+          isOnline: _isConnected,
+        ),
+      );
+    }
+  }
+
   Future<void> searchImages(String query) async {
     if (query.trim().isEmpty) {
-      emit(PromptError('Please enter a search term', isOnline: _isConnected));
+      emit(
+        PromptError(
+          'Please enter a search term',
+          isOnline: _isConnected,
+        ),
+      );
       return;
     }
 
-    emit(const PromptLoading());
+    emit(
+      PromptLoading(
+        cachedGame: state.cachedGame,
+      ),
+    );
 
     if (!_isConnected) {
       emit(
@@ -69,7 +117,7 @@ class PromptCubit extends Cubit<PromptState> {
           ),
         );
       },
-      (imageUrls) {
+      (imageUrls) async {
         if (imageUrls.length < 8) {
           emit(
             PromptError(
@@ -78,10 +126,18 @@ class PromptCubit extends Cubit<PromptState> {
             ),
           );
         } else {
+          // Cache the game before emitting loaded state
+          final cachedGame = CachedGame(
+            prompt: query,
+            imageUrls: imageUrls,
+          );
+          await cacheGame(cachedGame);
           emit(
             PromptLoaded(
               imageUrls: imageUrls,
               isOnline: _isConnected,
+              searchQuery: query,
+              cachedGame: cachedGame,
             ),
           );
         }

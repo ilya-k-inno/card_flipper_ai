@@ -3,8 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../src/core/network/connectivity_service.dart';
+import '../../../src/features/game/data/datasources/game_cache_data_source.dart';
 import '../../../src/features/game/data/datasources/pixabay_datasource.dart';
+import '../../../src/features/game/data/repositories/game_cache_repository_impl.dart';
 import '../../../src/features/game/data/repositories/game_repository_impl.dart';
+import '../../../src/features/game/domain/entities/cached_game.dart';
+import '../../../src/features/game/domain/repositories/game_cache_repository.dart';
 import '../../../src/features/game/domain/repositories/game_repository.dart';
 import '../../features/game/presentation/game/bloc/game_cubit.dart';
 import '../../features/game/presentation/prompt/bloc/prompt_cubit.dart';
@@ -32,11 +36,20 @@ Future<void> init() async {
     () => PixabayDataSourceImpl(client: sl()),
   );
 
-  // Repository
+  // Repositories
   sl.registerLazySingleton<GameRepository>(
     () => GameRepositoryImpl(
       remoteDataSource: sl(),
     ),
+  );
+
+  // Game Cache
+  sl.registerLazySingleton<GameCacheDataSource>(
+    () => GameCacheDataSourceImpl(sl()),
+  );
+
+  sl.registerLazySingleton<GameCacheRepository>(
+    () => GameCacheRepositoryImpl(sl()),
   );
 
   // Settings
@@ -53,6 +66,7 @@ Future<void> init() async {
     () => PromptCubit(
       gameRepository: sl(),
       connectivityService: sl(),
+      cacheRepository: sl(),
     ),
   );
 

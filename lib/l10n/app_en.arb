@@ -16,6 +16,10 @@
   "@playOffline": {
     "description": "Button to start the game in offline mode"
   },
+  "playLast": "Play last:",
+  "@playLast": {
+    "description": "Button to play the last played game"
+  },
   "or": "OR",
   "@or": {
     "description": "Text shown between buttons"

@@ -16,6 +16,10 @@
   "@playOffline": {
     "description": "オフラインモードでゲームを開始するボタン"
   },
+  "playLast": "最後にプレイしたゲーム:",
+  "@playLast": {
+    "description": "最後にプレイしたゲームをプレイするボタン"
+  },
   "or": "または",
   "@or": {
     "description": "ボタン間に表示されるテキスト"

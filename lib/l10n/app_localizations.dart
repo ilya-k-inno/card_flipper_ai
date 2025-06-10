@@ -121,6 +121,12 @@ abstract class AppLocalizations {
   /// **'Play Offline'**
   String get playOffline;
 
+  /// Button to play the last played game
+  ///
+  /// In en, this message translates to:
+  /// **'Play last:'**
+  String get playLast;
+
   /// Text shown between buttons
   ///
   /// In en, this message translates to:

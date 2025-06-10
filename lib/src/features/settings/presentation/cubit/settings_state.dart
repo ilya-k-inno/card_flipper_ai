@@ -1,10 +1,7 @@
 part of 'settings_cubit.dart';
 
-abstract class SettingsState extends Equatable {
+abstract class SettingsState {
   const SettingsState();
-
-  @override
-  List<Object?> get props => [];
 }
 
 class SettingsInitial extends SettingsState {
@@ -33,16 +30,10 @@ class SettingsLoaded extends SettingsState {
       isDarkMode: isDarkMode ?? this.isDarkMode,
     );
   }
-
-  @override
-  List<Object?> get props => [themeMode, locale, isDarkMode];
 }
 
 class SettingsError extends SettingsState {
   final String message;
 
   const SettingsError(this.message);
-
-  @override
-  List<Object> get props => [message];
 }

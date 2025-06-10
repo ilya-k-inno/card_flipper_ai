@@ -21,6 +21,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get playOffline => 'オフラインでプレイ';
 
   @override
+  String get playLast => '最後にプレイしたゲーム:';
+
+  @override
   String get or => 'または';
 
   @override

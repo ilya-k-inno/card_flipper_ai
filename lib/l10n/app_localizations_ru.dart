@@ -21,6 +21,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get playOffline => 'Играть офлайн';
 
   @override
+  String get playLast => 'Играть последнюю игру:';
+
+  @override
   String get or => 'ИЛИ';
 
   @override
