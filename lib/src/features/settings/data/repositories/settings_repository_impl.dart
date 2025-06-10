@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,7 +41,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       return Locale(languageCode, countryCode);
     }
 
-    return const Locale('en');
+    return PlatformDispatcher.instance.locale;
   }
 
   @override

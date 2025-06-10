@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Pixel Flip';
+  String get appTitle => 'Pixabay Flip';
 
   @override
   String get enterTheme => 'Enter a theme for your game';

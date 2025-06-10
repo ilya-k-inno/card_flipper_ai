@@ -100,7 +100,7 @@ abstract class AppLocalizations {
   /// The title of the application
   ///
   /// In en, this message translates to:
-  /// **'Pixel Flip'**
+  /// **'Pixabay Flip'**
   String get appTitle;
 
   /// Hint text for theme input field
