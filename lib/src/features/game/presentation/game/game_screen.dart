@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pixel_flip/l10n/app_localizations.dart';
+import 'package:pixel_flip/src/core/utils/haptic_feedback_utils.dart';
 import 'package:pixel_flip/src/features/game/presentation/game/bloc/game_cubit.dart';
 import 'package:pixel_flip/src/features/game/presentation/game/widgets/memory_card.dart';
-import 'package:pixel_flip/l10n/app_localizations.dart';
 
 class GameScreen extends StatefulWidget {
   final List<String>? imageUrls;
@@ -64,6 +65,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Future<void> _showGameOverDialog(int moves) async {
+    HapticUtils.success();
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -114,17 +116,19 @@ class _GameScreenState extends State<GameScreen> {
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
+            onPressed: () async {
+              await HapticUtils.selectionClick();
+              if (mounted) {
+                Navigator.of(context).pop();
+              }
             },
           ),
           title: BlocBuilder<GameCubit, GameState>(
             bloc: _gameCubit,
             builder: (context, state) {
               if (state is GameInProgress) {
-                return Text(
-                  AppLocalizations.of(context)!.moves(state.moves.toString())
-                );
+                return Text(AppLocalizations.of(context)!
+                    .moves(state.moves.toString()));
               }
               return const Text('Pixel Flip');
             },
@@ -133,9 +137,12 @@ class _GameScreenState extends State<GameScreen> {
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () async {
-                await Navigator.pushNamed(context, '/settings');
+                await HapticUtils.selectionClick();
                 if (mounted) {
-                  setState(() {});
+                  await Navigator.pushNamed(context, '/settings');
+                  if (mounted) {
+                    setState(() {});
+                  }
                 }
               },
             ),

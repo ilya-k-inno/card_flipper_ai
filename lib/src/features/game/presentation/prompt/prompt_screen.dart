@@ -6,6 +6,7 @@ import 'package:pixel_flip/src/features/game/presentation/game/game_screen.dart'
 import 'package:pixel_flip/src/features/game/presentation/prompt/bloc/prompt_cubit.dart';
 
 import '../../../../../l10n/app_localizations.dart';
+import '../../../../core/utils/haptic_feedback_utils.dart';
 
 class PromptScreen extends StatefulWidget {
   const PromptScreen({super.key});
@@ -110,8 +111,14 @@ class _PromptScreenState extends State<PromptScreen>
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),
-              onPressed: () {
-                Navigator.pushNamed(context, '/settings');
+              onPressed: () async {
+                await HapticUtils.selectionClick();
+                if (mounted) {
+                  await Navigator.pushNamed(context, '/settings');
+                  if (mounted) {
+                    setState(() {});
+                  }
+                }
               },
             ),
           ],
@@ -208,7 +215,10 @@ class _PromptScreenState extends State<PromptScreen>
                                 OutlinedButton(
                                   onPressed: state is PromptLoading
                                       ? null
-                                      : _startOfflineGame,
+                                      : () async {
+                                          await HapticUtils.buttonPress();
+                                          _startOfflineGame();
+                                        },
                                   child: Text(AppLocalizations.of(context)!
                                       .playOffline),
                                 ),

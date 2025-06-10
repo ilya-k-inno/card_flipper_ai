@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pixel_flip/src/core/utils/haptic_feedback_utils.dart';
 import 'package:pixel_flip/src/features/game/domain/entities/card_model.dart';
 
 class MemoryCard extends StatefulWidget {
@@ -100,10 +101,19 @@ class _MemoryCardState extends State<MemoryCard> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  Future<void> _handleTap() async {
+    if (!widget.card.isMatched) {
+      await HapticUtils.cardFlip();
+      if (mounted) {
+        widget.onTap();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.card.isMatched ? null : widget.onTap,
+      onTap: _handleTap,
       child: AnimatedBuilder(
         animation: Listenable.merge([_flipAnimation, _matchAnimation]),
         builder: (context, child) {

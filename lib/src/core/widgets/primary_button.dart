@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pixel_flip/src/core/utils/haptic_feedback_utils.dart';
 
 class PrimaryButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -24,7 +25,12 @@ class PrimaryButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: isDisabled ? null : onPressed,
+        onPressed: isDisabled
+            ? null
+            : () async {
+                await HapticUtils.buttonPress();
+                onPressed();
+              },
         style: ElevatedButton.styleFrom(
           backgroundColor: isDisabled
               ? theme.colorScheme.primary.withValues(alpha: 0.5)

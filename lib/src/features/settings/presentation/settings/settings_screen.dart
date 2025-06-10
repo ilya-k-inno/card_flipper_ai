@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pixel_flip/src/core/config/app_config.dart';
+import 'package:pixel_flip/src/core/localization/app_localizations.dart';
+import 'package:pixel_flip/src/core/utils/haptic_feedback_utils.dart';
 
-import '../../../../core/config/app_config.dart';
-import '../../../../core/localization/app_localizations.dart';
 import '../privacy_policy/privacy_policy_screen.dart';
 import '../terms_of_service/terms_of_service_screen.dart';
 import 'bloc/settings_cubit.dart';
@@ -17,6 +18,15 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () async {
+            await HapticUtils.selectionClick();
+            if (context.mounted) {
+              Navigator.of(context).pop();
+            }
+          },
+        ),
         title: Text(l10n.settings),
         elevation: 0,
         scrolledUnderElevation: 2.0,
@@ -123,7 +133,10 @@ class SettingsScreen extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return InkWell(
-      onTap: onTap,
+      onTap: () async {
+        await HapticUtils.selectionClick();
+        onTap();
+      },
       borderRadius: BorderRadius.circular(8.0),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
@@ -262,7 +275,10 @@ class SettingsScreen extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return InkWell(
-      onTap: onTap,
+      onTap: () async {
+        await HapticUtils.selectionClick();
+        onTap();
+      },
       borderRadius: BorderRadius.circular(8.0),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
@@ -354,12 +370,15 @@ class SettingsScreen extends StatelessWidget {
                     color: colorScheme.primary),
                 title: Text(l10n.privacyPolicy),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const PrivacyPolicyScreen(),
-                    ),
-                  );
+                onTap: () async {
+                  await HapticUtils.selectionClick();
+                  if (context.mounted) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PrivacyPolicyScreen(),
+                      ),
+                    );
+                  }
                 },
               ),
               const Divider(height: 1),
@@ -368,12 +387,15 @@ class SettingsScreen extends StatelessWidget {
                     color: colorScheme.primary),
                 title: Text(l10n.termsOfService),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const TermsOfServiceScreen(),
-                    ),
-                  );
+                onTap: () async {
+                  await HapticUtils.selectionClick();
+                  if (context.mounted) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const TermsOfServiceScreen(),
+                      ),
+                    );
+                  }
                 },
               ),
             ],
