@@ -41,7 +41,7 @@ class HapticUtils {
   }
 
   static Future<void> error() async {
-    if (await Vibration.hasVibrator() ?? false) {
+    if (await Vibration.hasVibrator()) {
       await Vibration.vibrate(duration: 200);
     }
   }

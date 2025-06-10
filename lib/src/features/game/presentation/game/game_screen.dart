@@ -80,22 +80,22 @@ class _GameScreenState extends State<GameScreen> {
           }
         },
         child: AlertDialog(
-          title: const Text('Congratulations!'),
-          content: Text('You won in $moves moves!'),
+          title: Text(AppLocalizations.of(context)!.gameOver),
+          content: Text(AppLocalizations.of(context)!.youWon(moves.toString())),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _gameCubit.resetGame();
               },
-              child: const Text('Play Again'),
+              child: Text(AppLocalizations.of(context)!.playAgain),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
-              child: const Text('Back to Home'),
+              child: Text(AppLocalizations.of(context)!.backToHome),
             ),
           ],
         ),
@@ -118,7 +118,7 @@ class _GameScreenState extends State<GameScreen> {
             icon: const Icon(Icons.arrow_back),
             onPressed: () async {
               await HapticUtils.selectionClick();
-              if (mounted) {
+              if (mounted && context.mounted) {
                 Navigator.of(context).pop();
               }
             },
@@ -130,7 +130,9 @@ class _GameScreenState extends State<GameScreen> {
                 return Text(AppLocalizations.of(context)!
                     .moves(state.moves.toString()));
               }
-              return const Text('Pixel Flip');
+              return Text(
+                AppLocalizations.of(context)!.appTitle,
+              );
             },
           ),
           actions: [
@@ -138,7 +140,7 @@ class _GameScreenState extends State<GameScreen> {
               icon: const Icon(Icons.settings),
               onPressed: () async {
                 await HapticUtils.selectionClick();
-                if (mounted) {
+                if (mounted && context.mounted) {
                   await Navigator.pushNamed(context, '/settings');
                   if (mounted) {
                     setState(() {});
@@ -158,8 +160,11 @@ class _GameScreenState extends State<GameScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.error_outline,
-                        size: 48, color: Colors.red),
+                    const Icon(
+                      Icons.error_outline,
+                      size: 48,
+                      color: Colors.red,
+                    ),
                     const SizedBox(height: 16),
                     Text(state.message),
                     const SizedBox(height: 16),

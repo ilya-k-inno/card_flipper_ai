@@ -113,7 +113,7 @@ class _PromptScreenState extends State<PromptScreen>
               icon: const Icon(Icons.settings),
               onPressed: () async {
                 await HapticUtils.selectionClick();
-                if (mounted) {
+                if (mounted && context.mounted) {
                   await Navigator.pushNamed(context, '/settings');
                   if (mounted) {
                     setState(() {});

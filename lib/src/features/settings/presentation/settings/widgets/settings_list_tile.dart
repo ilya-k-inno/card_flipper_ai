@@ -27,10 +27,15 @@ class SettingsListTile extends StatelessWidget {
       trailing: trailing ??
           Icon(
             Icons.chevron_right,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+            color: Theme.of(context).colorScheme.onSurface.withValues(
+                  alpha: 0.5,
+                ),
           ),
       onTap: onTap,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 24,
+        vertical: 12,
+      ),
     );
   }
 }
