@@ -14,14 +14,43 @@ class PromptScreen extends StatefulWidget {
   State<PromptScreen> createState() => _PromptScreenState();
 }
 
-class _PromptScreenState extends State<PromptScreen> {
+class _PromptScreenState extends State<PromptScreen>
+    with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final _searchController = TextEditingController();
+
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _rotationAnimation;
 
   @override
   void initState() {
     super.initState();
-    // Check connectivity status when the screen loads
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    )..repeat(reverse: true);
+
+    _scaleAnimation = Tween<double>(
+      begin: 0.85,
+      end: 1.05,
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _rotationAnimation = Tween<double>(
+      begin: -0.16, // -15 degrees in radians
+      end: 0.16, // 15 degrees in radians
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
   }
 
   void _startGame() {
@@ -100,12 +129,23 @@ class _PromptScreenState extends State<PromptScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(height: 20),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.asset(
-                            'assets/images/img.png',
-                            height: 200,
-                          ),
+                        AnimatedBuilder(
+                          animation: _controller,
+                          builder: (context, child) {
+                            return Transform.rotate(
+                              angle: _rotationAnimation.value,
+                              child: Transform.scale(
+                                scale: _scaleAnimation.value,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                    'assets/images/img.png',
+                                    height: 200,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         const SizedBox(height: 24),
                         Text(
@@ -198,6 +238,7 @@ class _PromptScreenState extends State<PromptScreen> {
   @override
   void dispose() {
     _searchController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 }
