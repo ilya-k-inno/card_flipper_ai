@@ -74,6 +74,7 @@ class PromptCubit extends Cubit<PromptState> {
         PromptError(
           'Cached game not found',
           isOnline: _isConnected,
+          cachedGame: state.cachedGame,
         ),
       );
     }
@@ -85,6 +86,7 @@ class PromptCubit extends Cubit<PromptState> {
         PromptError(
           'Please enter a search term',
           isOnline: _isConnected,
+          cachedGame: state.cachedGame,
         ),
       );
       return;
@@ -98,9 +100,10 @@ class PromptCubit extends Cubit<PromptState> {
 
     if (!_isConnected) {
       emit(
-        const PromptError(
+        PromptError(
           'No internet connection. Please check your connection and try again.',
           isOnline: false,
+          cachedGame: state.cachedGame,
         ),
       );
       return;
@@ -114,6 +117,7 @@ class PromptCubit extends Cubit<PromptState> {
           PromptError(
             _mapFailureToMessage(failure),
             isOnline: _isConnected,
+            cachedGame: state.cachedGame,
           ),
         );
       },
@@ -123,6 +127,7 @@ class PromptCubit extends Cubit<PromptState> {
             PromptError(
               'Not enough images found. Please try a different search term.',
               isOnline: _isConnected,
+              cachedGame: state.cachedGame,
             ),
           );
         } else {

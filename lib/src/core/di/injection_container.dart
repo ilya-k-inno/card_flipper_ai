@@ -13,7 +13,7 @@ import '../../features/game/presentation/game/bloc/game_cubit.dart';
 import '../../features/game/presentation/prompt/bloc/prompt_cubit.dart';
 import '../../../src/features/settings/data/repositories/settings_repository_impl.dart';
 import '../../../src/features/settings/domain/repositories/settings_repository.dart';
-import '../../../src/features/settings/presentation/cubit/settings_cubit.dart';
+import '../../features/settings/presentation/settings/bloc/settings_cubit.dart';
 
 final sl = GetIt.instance;
 

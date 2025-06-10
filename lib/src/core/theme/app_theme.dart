@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
+  // Snackbar theme
+  static final SnackBarThemeData snackBarTheme = SnackBarThemeData(
+    behavior: SnackBarBehavior.floating,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+    elevation: 6.0,
+    contentTextStyle: const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+    ),
+    showCloseIcon: true,
+  );
+
+
   // Light theme
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
@@ -8,6 +23,7 @@ class AppTheme {
       seedColor: Colors.green,
       brightness: Brightness.light,
     ),
+    snackBarTheme: snackBarTheme,
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       elevation: 0,
@@ -35,6 +51,7 @@ class AppTheme {
       seedColor: Colors.purple,
       brightness: Brightness.dark,
     ),
+    snackBarTheme: snackBarTheme,
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       elevation: 0,

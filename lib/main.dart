@@ -14,8 +14,8 @@ import 'src/features/game/presentation/prompt/bloc/prompt_cubit.dart';
 import 'src/features/game/presentation/prompt/prompt_screen.dart';
 import 'src/features/settings/data/repositories/settings_repository_impl.dart';
 import 'src/features/settings/domain/repositories/settings_repository.dart';
-import 'src/features/settings/presentation/cubit/settings_cubit.dart';
-import 'src/features/settings/presentation/pages/settings_screen.dart';
+import 'src/features/settings/presentation/settings/bloc/settings_cubit.dart';
+import 'src/features/settings/presentation/settings/settings_screen.dart';
 
 void main() async {
   // Ensure Flutter is initialized
